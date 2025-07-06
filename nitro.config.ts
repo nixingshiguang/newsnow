@@ -56,6 +56,16 @@ if (process.env.VERCEL) {
       },
     },
   }
+} else if (process.env.EDGEONE_PAGES || process.env.TENCENT_EDGEONE) {
+  // EdgeOne Pages configuration
+  nitroOption.preset = "cloudflare-pages"  // Use cloudflare-pages preset for compatibility
+  nitroOption.unenv = {
+    alias: {
+      "safer-buffer": "node:buffer",
+    },
+  }
+  // EdgeOne Pages doesn't support D1, use in-memory or external database
+  nitroOption.database = undefined
 } else if (process.env.BUN) {
   nitroOption.preset = "bun"
   nitroOption.database = {
