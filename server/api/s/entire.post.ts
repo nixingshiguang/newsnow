@@ -2,14 +2,6 @@ import type { SourceID, SourceResponse } from "@shared/types"
 import { getCacheTable } from "#/database/cache"
 
 export default defineEventHandler(async (event) => {
-  // Ensure this endpoint only accepts POST requests
-  if (event.method !== 'POST') {
-    throw createError({
-      statusCode: 405,
-      statusMessage: 'Method Not Allowed'
-    })
-  }
-
   try {
     const { sources: _ }: { sources: SourceID[] } = await readBody(event)
     const cacheTable = await getCacheTable()
